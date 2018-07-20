@@ -28,7 +28,7 @@ tags:
 
 ## What is Redux ?
 
-[Redux is a JavaScript library used for state management](https://redux.js.org) in popular JavaScript libraries such as ** React ** and ** Angular **.
+[Redux is a JavaScript library used for state management](https://redux.js.org) in popular JavaScript libraries such as **React** and **Angular**.
 
 > State management, in this case, means handling changes that occur upon running / executing a particular action(for example, the click of a button, an async WebSocket message, etc).
 
@@ -78,7 +78,7 @@ After a few seconds, `create-react-app` will have finished creating our app. So,
 npm i --save redux react-redux
 ```
 
-  > ** Note:** Redux is the main library and`react-redux` helps facilitate the interaction between React and Redux.In short, it acts like a proxy.
+  > **Note:** Redux is the main library and`react-redux` helps facilitate the interaction between React and Redux.In short, it acts like a proxy.
 
 ### Developing the Redux Version
 
@@ -313,7 +313,7 @@ Using the new Context API depends on three main steps:
 
 Sigh, we won't really do alot of work anymore. Migrating from Redux to the new Context API is quite easy.
 
-The first step is removing ** every ** trace of ** Redux ** from our app.We'll start by removing the libraries from our app:
+The first step is removing **every** trace of **Redux** from our app.We'll start by removing the libraries from our app
 
 ```sh
 npm rm redux react-redux
@@ -334,7 +334,7 @@ to
 
 With these changes in place, we can rewrite our app with React Context API. So, to convert the previous app from a Redux powered app to using the Context API, we will need a context to store the app's data (this context will replace the Redux Store). Also, we will need a `Context.Provider` component which will have a `state`, `props`, and a normal React component lifecycle.
 
-Therefore, we will create a `providers.js` file in the ** src ** folder and add the following code to it:
+Therefore, we will create a `providers.js` file in the **src** folder and add the following code to it:
 
 ```js
  import React from 'react'; 
@@ -351,7 +351,7 @@ render() {
 
 The Provider class is responsible for encapsulating other components inside the `ThemeContext.Provider` so these components can have access to our app's state and to the `searchTermChanged` function that provides a way to change this state.
 
-To consume these values later in the component tree, we will need to initiate a `ThemeContext.Consumer` component.This component will need a render function that will receive the above value props as arguments to use at will.So, create another file called `consumer.js` in the src directory and write the following code into it:
+To consume these values later in the component tree, we will need to initiate a `ThemeContext.Consumer` component. This component will need a render function that will receive the above value props as arguments to use at will. So, create another file called `consumer.js` in the src directory and write the following code into it:
 
 ```js
 import React from 'react';
@@ -385,7 +385,7 @@ export default class Consumer extends React.Component {
 }
 ```
 
-Now, to finalise the migration, we will open our `index.js` file and inside the `render()` function, wrap the App component with the Consumer component.Also, wrap the Consumer inside the Provider component.Exactly as shown here:
+Now, to finalise the migration, we will open our `index.js` file and inside the `render()` function, wrap the App component with the Consumer component. Also, wrap the Consumer inside the Provider component.Exactly as shown here:
 
 ```js
 import React from 'react';
@@ -410,7 +410,7 @@ We have successfully refactored our React App which was formerly powered by Redu
 
 # Redux vs Context API - When to use either of them
 
-Redux is an ** advanced ** state management library that should be used when building large scale react apps.That is as a result of fast caching and easing the loading actions conducted by React when loading new changes effected by the state.The Context API on the other hand, should be used in small scale react apps where byte - sized changes are made.Using the Context API, we do not have to write a lot of code to work out the logic exhibited by state changes.
+Redux is an **advanced** state management library that should be used when building large scale react apps.That is as a result of fast caching and easing the loading actions conducted by React when loading new changes effected by the state.The Context API on the other hand, should be used in small scale react apps where byte - sized changes are made.Using the Context API, we do not have to write a lot of code to work out the logic exhibited by state changes.
 
 ## In summary,
 
