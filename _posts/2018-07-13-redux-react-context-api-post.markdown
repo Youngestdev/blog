@@ -36,7 +36,7 @@ tags:
 
 - The state of the entire app is stored in a single object within a single store.
 - To change the state, we need to dispatch `actions` that describes what needs to happen.
-- You cannot change properties of objects or make changes to existing arrays. You should always return a new reference to a new object or new array.
+- We cannot change properties of objects or make changes to existing arrays. We should always return a new reference to a new object or new array.
 
 ## Building a Simple React App
 
@@ -44,7 +44,7 @@ Since we'll be demonstrating how React's new Context API replaces `Redux`, first
 
 ### Project Requirements
 
-As this article uses only React and some NPM libraries, we will need nothing else than NodeJS and NPM installed in our machine. If you haven't installed **NodeJS** and **NPM**, check out the [Official installation procedures](https://nodejs.org/en/download/) to install NodeJS and NPM. After installing NodeJS and NPM, we will need to install the `create-react-app` tool. We will use this tool to scaffold a simple React app, which makes the process of starting a new app easier. To install this tool, we run the command :
+As this article uses only React and some NPM libraries, we will need nothing else than NodeJS and NPM installed in our machine. If we haven't installed **NodeJS** and **NPM**, check out the [Official installation procedures](https://nodejs.org/en/download/) to install NodeJS and NPM. After installing NodeJS and NPM, we will need to install the `create-react-app` tool. We will use this tool to scaffold a simple React app, which makes the process of starting a new app easier. To install this tool, we run the command :
 ```bash
 
 npm i -g create-react-app
