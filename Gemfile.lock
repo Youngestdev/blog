@@ -81,7 +81,7 @@ GEM
     pygments.rb (0.6.0)
       posix-spawn (~> 0.3.6)
       yajl-ruby (~> 1.1.0)
-    rake (11.1.1)
+    rake (12.3.3)
     rake_text (0.0.1)
     rb-fsevent (0.9.4)
     rb-inotify (0.9.5)
