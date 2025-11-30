@@ -1,0 +1,37 @@
+/* assets/css/typography.css */
+@import url('https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@300..800&display=swap');
+
+:root {
+    /* Override the default sans-serif font variable */
+    --font-family-sans: 'Poppins', system-ui, -apple-system, sans-serif;
+
+    /* Mermaid diagram colors - Light mode */
+    --mermaid-primary-color: #e8f4ff;
+    --mermaid-primary-text: #1f2937;
+    --mermaid-primary-border: #007acc;
+    --mermaid-line-color: #2c7be5;
+    --mermaid-secondary-color: #f0f9ff;
+    --mermaid-tertiary-color: #ffffff;
+
+    /* Diagram container styling */
+    --diagram-bg-gradient-start: rgba(248, 250, 252, 0.95);
+    --diagram-bg-gradient-end: rgba(241, 245, 249, 0.92);
+    --diagram-border: #e0e0e0;
+    --diagram-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+}
+
+[data-theme=dark] {
+    /* Mermaid diagram colors - Dark mode */
+    --mermaid-primary-color: #1f2937;
+    --mermaid-primary-text: #e5e7eb;
+    --mermaid-primary-border: #3b82f6;
+    --mermaid-line-color: #93c5fd;
+    --mermaid-secondary-color: #0f172a;
+    --mermaid-tertiary-color: #111827;
+
+    /* Diagram container styling */
+    --diagram-bg-gradient-start: rgba(20, 20, 22, 0.95);
+    --diagram-bg-gradient-end: rgba(18, 18, 20, 0.92);
+    --diagram-border: #2e2e2e;
+    --diagram-shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+}
