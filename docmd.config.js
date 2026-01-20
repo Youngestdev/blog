@@ -108,8 +108,8 @@ module.exports = {
       collapsible: true,
       children: [
         { title: 'Headless Commerce Architecture', path: '/fisco-headless-arch', icon: 'layers' },
-        { title: 'Batch Imports Optimization', path: '/batch_imports.md', icon: 'upload' },
-        { title: 'Ensuring Schema Uniformity Across MongoDB Codebases with MongoSchematic', path: '/mschema.md', icon: 'database' },
+        { title: 'Batch Imports Optimization', path: '/batch_imports', icon: 'upload' },
+        { title: 'Ensuring Schema Uniformity Across MongoDB Codebases with MongoSchematic', path: '/mschema', icon: 'database' },
       ],
     },
     {
