@@ -107,6 +107,7 @@ module.exports = {
       path: '#',
       collapsible: true,
       children: [
+        { title: 'How We Build Merchant Carousels with Code', path: '/fisco_merchant_carousel_generator', icon: 'layers' }
         { title: 'Headless Commerce Architecture', path: '/fisco-headless-arch', icon: 'layers' },
         { title: 'Batch Imports Optimization', path: '/batch_imports', icon: 'upload' },
         { title: 'Ensuring Schema Uniformity Across MongoDB Codebases with MongoSchematic', path: '/mschema', icon: 'database' },
