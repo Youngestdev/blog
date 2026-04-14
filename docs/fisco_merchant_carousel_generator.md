@@ -6,6 +6,8 @@ date: 2026-13-04
 
 The implementation covered here is `generate-merchant-carousel.js`, which produces a seven-slide Meta carousel for Razak of Suavee Studios. The broader idea, though, is larger than one campaign: encode the brand system, layout rules, and slide structure in code so a campaign can be regenerated quickly, consistently, and with far less manual setup.
 
+This is not a step-by-step walkthrough. The interesting part is the system design: how a small script turns campaign structure into repeatable visual output, and where that system is intentionally bounded.
+
 At a high level, the generator does three jobs:
 
 - turns campaign copy into a structured slide model
@@ -48,27 +50,16 @@ This approach is especially effective for campaigns where the visual system rema
 
 ## The asset pipeline at a glance
 
-The generator is SVG-first. That design decision shapes the entire workflow.
+The generator is SVG-first. That decision shapes the entire workflow.
 
 ```mermaid
-flowchart TD
-    A[Run generate-merchant-carousel.js] --> B[Load shared constants and Fisco logo SVG]
-    B --> C[Build campaign content from CAPTION, EXPORT_NOTES, and SLIDES]
-    C --> D{For each slide}
-    D -->|cover| E[renderCoverSlide]
-    D -->|feature| F[renderFeatureSlide]
-    D -->|cta| G[renderCtaSlide]
-    E --> H[renderSvg]
-    F --> H
-    G --> H
-    H --> I[Write slide-n.svg]
-    I --> J{ImageMagick available?}
-    J -->|yes| K[Write slide-n.png]
-    J -->|no| L[Keep SVG only]
-    K --> M[Continue]
-    L --> M
-    M --> N[Write caption.txt]
-    N --> O[Write export-notes.txt]
+flowchart LR
+    A[Campaign content] --> B[Slide model]
+    C[Brand rules and SVG primitives] --> D[Slide composers]
+    B --> D
+    D --> E[SVG slides]
+    E --> F[Optional PNG export]
+    B --> G[Caption and export notes]
 ```
 
 SVG is the source of truth. PNG is a convenience export layered on top.
@@ -110,6 +101,15 @@ The rendering layer is a set of small functions that build SVG fragments and ass
 
 That split is what makes the script useful. The campaign is specific, but the composition logic is mostly reusable.
 
+```mermaid
+flowchart LR
+    A[CAPTION / EXPORT_NOTES / SLIDES] --> B[Slide-specific data]
+    C[Panels / text / icons / photo slots] --> D[Cover / feature / CTA composers]
+    B --> D
+    D --> E[renderSvg]
+    E --> F[Files on disk]
+```
+
 ## How the slide model works
 
 The editorial center of the generator is the `SLIDES` array. Each entry describes one slide in the sequence.
@@ -141,45 +141,11 @@ The rendering layer is easiest to understand as three tiers: primitives, slide c
 
 ```mermaid
 flowchart TB
-    subgraph Primitives
-        P1[escapeXml]
-        P2[renderDefs]
-        P3[renderBackground]
-        P4[renderStripeLines]
-        P5[renderPanel]
-        P6[renderPhotoSlot]
-        P7[renderTextLines]
-        P8[renderPill]
-        P9[renderIcon]
-        P10[renderPointCard]
-        P11[renderChipRow]
-        P12[renderLogo]
-        P13[renderHeader]
-        P14[renderFooter]
-    end
-
-    subgraph Slide_Composers
-        C1[renderFeatureBottomCard]
-        C2[renderCoverSlide]
-        C3[renderFeatureSlide]
-        C4[renderCtaSlide]
-        C5[renderSlide]
-    end
-
-    subgraph Output
-        O1[renderSvg]
-        O2[saveFile]
-        O3[exportPng]
-    end
-
-    Primitives --> Slide_Composers
-    C1 --> C3
-    C2 --> O1
-    C3 --> O1
-    C4 --> O1
-    C5 --> O1
-    O1 --> O2
-    O2 --> O3
+    A[Low-level SVG primitives] --> B[Shared chrome]
+    A --> C[Slide-specific composers]
+    B --> C
+    C --> D[renderSlide dispatcher]
+    D --> E[renderSvg / saveFile / exportPng]
 ```
 
 This is a simple architecture, but it is disciplined. The generator is not one long string template. It is a small composition system.
@@ -257,7 +223,7 @@ If the function receives an unsupported name, it falls back to a generic icon. T
 
 This function combines card shell, icon, title, and supporting copy into a single reusable feature card. Slides 2 through 6 use it to create the vertical stack beside the main photo panel.
 
-## How complete slides are assembled
+## Shared frame
 
 Once the primitives exist, the generator uses a small set of composite renderers to assemble full slides.
 
@@ -328,6 +294,15 @@ That shared frame is what makes the set feel like a campaign instead of a collec
 
 The carousel uses a narrative progression rather than a set of disconnected claims.
 
+```mermaid
+flowchart LR
+    A[Merchant proof] --> B[Operational visibility]
+    B --> C[Store and inventory control]
+    C --> D[Sales and order responsiveness]
+    D --> E[Calmer operations]
+    E --> F[Storefront and product CTA]
+```
+
 | Slide | Role in the story | Layout behavior |
 | --- | --- | --- |
 | 1 | Introduce the merchant and set context | Three photo slots plus a large intro card |
@@ -343,6 +318,15 @@ That progression matters. The carousel starts with proof, moves through operatio
 ## Export behavior and graceful degradation
 
 At the bottom of the file, the script loops through `SLIDES`, renders each one, saves the SVG, and then tries to create a PNG version.
+
+```mermaid
+flowchart LR
+    A[Render SVG] --> B{magick available?}
+    B -->|yes| C[Export PNG]
+    B -->|no| D[Keep SVG as final asset]
+    C --> E[Write notes]
+    D --> E
+```
 
 The PNG export path is deliberately lightweight:
 
@@ -426,27 +410,7 @@ For example:
 
 ## How we would generalize it further
 
-If this system needed to support many merchants, the next step would not be a redesign. It would be parameterization.
-
-The cleanest path would be:
-
-1. move merchant metadata into a separate config object or content file
-2. derive `TOTAL_SLIDES` from `SLIDES.length`
-3. move hardcoded merchant strings out of the renderers
-4. add a dedicated `growth` icon
-5. improve PNG export reporting with per-file success and failure output
-6. optionally support real image embedding if final composites need to be generated entirely from code
-
-## The practical workflow
-
-In practice, the production loop looks like this:
-
-1. update merchant content in `generate-merchant-carousel.js`
-2. run the Node script
-3. review the generated SVG slides
-4. confirm PNG exports if upload-ready rasters are needed
-5. swap placeholder image areas for approved photography
-6. review `caption.txt` and `export-notes.txt`
+If this system needed to support many merchants, the next step would not be a redesign. It would be parameterization: move merchant metadata into a separate content object, derive `TOTAL_SLIDES` from `SLIDES.length`, pull hardcoded merchant strings out of the renderers, add a dedicated `growth` icon, improve per-file export reporting, and optionally support embedded final imagery when the output needs to be fully code-generated.
 
 ## Closing thought
 
