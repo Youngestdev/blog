@@ -93,7 +93,7 @@ module.exports = {
     enabled: false,
     // The URL to the folder containing your docs in the git repo
     // Note: It usually ends with /edit/main/docs or /blob/main/docs
-    baseUrl: 'https://github.com/mgks/docmd/edit/main/docs',
+    baseUrl: 'https://github.com/Youngestdev/blog/edit/main/docs',
     text: 'Edit this page on GitHub'
   },
 
@@ -107,7 +107,7 @@ module.exports = {
       path: '#',
       collapsible: true,
       children: [
-        { title: 'How We Build Merchant Carousels with Code', path: '/fisco_merchant_carousel_generator', icon: 'layers' }
+        { title: 'How We Build Merchant Carousels with Code', path: '/fisco_merchant_carousel_generator', icon: 'layers' },
         { title: 'Headless Commerce Architecture', path: '/fisco-headless-arch', icon: 'layers' },
         { title: 'Batch Imports Optimization', path: '/batch_imports', icon: 'upload' },
         { title: 'Ensuring Schema Uniformity Across MongoDB Codebases with MongoSchematic', path: '/mschema', icon: 'database' },
@@ -140,7 +140,7 @@ module.exports = {
         { title: 'Building a Search Engine', path: '/how_to_create_a_search_engine', icon: 'search' },
         { title: 'SSO with FastAPI & MongoDB', path: '/verification-system-mongodb-fastapi', icon: 'shield-check' },
         { title: 'WebSocket Realtime Streams', path: '/websocket', icon: 'wifi' },
-        { title: 'Mini Server Watch Board', path: '/server_dashboard.md', icon: 'activity' },
+        { title: 'Mini Server Watch Board', path: '/server_dashboard', icon: 'activity' },
         { title: 'OPA Policy Management App', path: '/policy-management-app', icon: 'lock' },
       ],
     },
@@ -183,7 +183,7 @@ module.exports = {
   Sponsor: {
     enabled: false,
     title: 'Support docmd',
-    link: 'https://github.com/sponsors/mgks',
+    link: 'https://github.com/sponsors/youngestdev',
   },
 
   // Footer Configuration

@@ -1,0 +1,14 @@
+{
+  "name": "youngestdev-blog",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "docmd build",
+    "dev": "docmd dev"
+  },
+  "devDependencies": {
+    "@docmd/core": "latest"
+  }
+}
