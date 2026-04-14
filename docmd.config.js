@@ -84,6 +84,8 @@ module.exports = {
     sitemap: {
       defaultChangefreq: 'weekly',
       defaultPriority: 0.8
+    },
+    mermaid: {
     }
     // Add other future plugin configurations here by their key
   },
